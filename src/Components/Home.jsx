@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router';
 import styles from '../styles/Home.module.css'
+import { toast } from "react-toastify";
 
 const Home = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
@@ -11,6 +12,11 @@ const Home = () => {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
+    if(!cookies.token){
+      navigate('/login');
+      return;
+    }
+
     axios.get('http://localhost:80/view', {
       headers: {
         authorization: `Bearer ${cookies.token}`
@@ -18,12 +24,25 @@ const Home = () => {
     }).then((backendData) => {
       if (backendData.data.message == 'successfull') {
         setData(backendData.data.data[0]);
+        notify(backendData.data.data[0].name)
       }
     }).catch(error => {
       console.log(error);
     })
 
-  })
+  }, [])
+
+  const notify = (name) => {
+    toast.success(`Welcome ${name}`, {
+      position: "top-right",
+      autoClose: 3000, // 3 sec
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "colored",
+    });
+  }
 
   const handleLogout = () => {
     removeCookie('token');
@@ -51,7 +70,7 @@ const Home = () => {
         <div className={styles.ch11}>Name : {data ? data.name : ""}</div>
         <div className={styles.ch12}>Email : {data ? data.email : ''}</div>
       </div>
-      {cookies.token ? <button className={styles.logout}  onClick={handleLogout}>Logout</button> : ""}
+      {cookies.token ? <button className={styles.logout} onClick={handleLogout}>Logout</button> : ""}
       <div>
         {password.length > 0 ? <button className={styles.upbtn} onClick={handleUpdate}>Update Password</button> : ""}
       </div>

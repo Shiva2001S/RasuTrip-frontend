@@ -1,8 +1,7 @@
-/* .frm{
+.frm{
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid red;
     height: 50vh;
 }
 
@@ -25,4 +24,18 @@ button{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     border: 8px orange;
     border-radius: 7px;
-} */
+}
+
+.reglink{
+    position: absolute;
+    left: 40%;
+    text-decoration: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    width: 180px;
+    height: 30px;
+    text-align: center;
+    background-color: purple;
+    color: black;
+    padding-top: 4px;
+    border-radius: 7px;
+}

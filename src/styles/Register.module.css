@@ -1,0 +1,20 @@
+.frm{
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginlink{
+    position: absolute;
+    text-decoration: none;
+    left: 40%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    width: 180px;
+    height: 30px;
+    background-color: purple;
+    color: black;
+    padding-top: 4px;
+    border-radius: 7px;
+    text-align: center;
+}
