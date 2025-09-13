@@ -1,0 +1,28 @@
+/* .frm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid red;
+    height: 50vh;
+}
+
+input, button{
+    margin: 10px;
+    top: 200px;
+}
+
+input{
+    height: 30px;
+    width: 200px;
+    border: 3px solid black;
+    border-radius: 7px;
+}
+
+button{
+    height: 30px;
+    width: 200px;
+    background-color: orange;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border: 8px orange;
+    border-radius: 7px;
+} */

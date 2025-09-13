@@ -1,0 +1,65 @@
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router';
+import styles from '../styles/Home.module.css'
+
+const Home = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(['token']);
+  const navigate = useNavigate();
+  const [data, setData] = useState();
+  const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    axios.get('http://localhost:80/view', {
+      headers: {
+        authorization: `Bearer ${cookies.token}`
+      }
+    }).then((backendData) => {
+      if (backendData.data.message == 'successfull') {
+        setData(backendData.data.data[0]);
+      }
+    }).catch(error => {
+      console.log(error);
+    })
+
+  })
+
+  const handleLogout = () => {
+    removeCookie('token');
+    navigate('/login');
+  }
+
+  const handleUpdate = async () => {
+    let name = data.name;
+    let email = data.email;
+    let newPassword = password;
+
+    const data2 = await axios.put('http://localhost:80/update', { name, email, newPassword }, { headers: { authorization: `Bearer ${cookies.token}` } })
+    console.log(data2);
+    if (data2.data.message == 'successful') {
+      setPassword('');
+      const data = await axios.post('http://localhost:80/login', { email, password });
+      setCookie('token', data.data.token, { path: '/', maxAge: 60 * 60 * 12 });
+    }
+
+
+  }
+  return (
+    <div className={styles.par}>
+      <div className={styles.ch1}>
+        <div className={styles.ch11}>Name : {data ? data.name : ""}</div>
+        <div className={styles.ch12}>Email : {data ? data.email : ''}</div>
+      </div>
+      {cookies.token ? <button className={styles.logout}  onClick={handleLogout}>Logout</button> : ""}
+      <div>
+        {password.length > 0 ? <button className={styles.upbtn} onClick={handleUpdate}>Update Password</button> : ""}
+      </div>
+      <div>
+        <input className={styles.inp} type='text' placeholder='Enter the updated password' onChange={(e) => setPassword(e.target.value)} value={password} />
+      </div>
+    </div>
+  )
+}
+
+export default Home
