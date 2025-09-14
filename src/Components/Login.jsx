@@ -11,7 +11,8 @@ const Login = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (cookies.token) {
-      navigate('/home')
+      navigate('/')
+      // navigate('https://rasutrip-backend.onrender.com/home')
     }
   }, [])
   
@@ -19,11 +20,13 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const data = await axios.post('http://localhost:80/login', { email, password });
+      // const data = await axios.post('http://localhost:80/login', { email, password });
+      const data = await axios.post('https://rasutrip-backend.onrender.com/login', { email, password });
       setCookie('token', data.data.token, { path: '/', maxAge: 60 * 60 * 12 });
 
       if (data.data.message == 'successfull') {
-        navigate('/home');
+        navigate('/');
+        // navigate('https://rasutrip-backend.onrender.com/home');
       }
     } catch (error) {
       console.log(error)

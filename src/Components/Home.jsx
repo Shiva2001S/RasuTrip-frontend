@@ -17,7 +17,11 @@ const Home = () => {
       return;
     }
 
-    axios.get('http://localhost:80/view', {
+    // axios.get('http://localhost:80/view', {
+    //   headers: {
+    //     authorization: `Bearer ${cookies.token}`
+    //   }
+    axios.get('https://rasutrip-backend.onrender.com/view', {
       headers: {
         authorization: `Bearer ${cookies.token}`
       }
@@ -54,11 +58,13 @@ const Home = () => {
     let email = data.email;
     let newPassword = password;
 
-    const data2 = await axios.put('http://localhost:80/update', { name, email, newPassword }, { headers: { authorization: `Bearer ${cookies.token}` } })
+    // const data2 = await axios.put('http://localhost:80/update', { name, email, newPassword }, { headers: { authorization: `Bearer ${cookies.token}` } })
+    const data2 = await axios.put('https://rasutrip-backend.onrender.com/update', { name, email, newPassword }, { headers: { authorization: `Bearer ${cookies.token}` } })
     console.log(data2);
     if (data2.data.message == 'successful') {
       setPassword('');
-      const data = await axios.post('http://localhost:80/login', { email, password });
+      // const data = await axios.post('http://localhost:80/login', { email, password });
+      const data = await axios.post('https://rasutrip-backend.onrender.com/login', { email, password });
       setCookie('token', data.data.token, { path: '/', maxAge: 60 * 60 * 12 });
     }
 

@@ -13,7 +13,8 @@ const Register = () => {
 
   useEffect(() => {
     if (cookies.token) {
-      navigate('/home')
+      navigate('/')
+      // navigate('https://rasutrip-backend.onrender.com/home')
     }
   }, [])
 
@@ -38,9 +39,11 @@ const Register = () => {
       return;
     }
 
-    const data = await axios.post('http://localhost:80/register', { name, email, password });
+    // const data = await axios.post('http://localhost:80/register', { name, email, password });
+    const data = await axios.post('https://rasutrip-backend.onrender.com/register', { name, email, password });
     if (data.data.message == 'successfull') {
       navigate('/login');
+      // navigate('https://rasutrip-backend.onrender.com/login');
     } else {
       notify(data.data.message);
     }

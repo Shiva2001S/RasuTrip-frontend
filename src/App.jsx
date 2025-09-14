@@ -14,7 +14,7 @@ function App() {
     <>
       <ToastContainer />
       <Routes>
-        <Route exact='true' path='/home' element={<Home />} />
+        <Route exact='true' path='/' element={<Home />} />
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/register' element={<Register />} />
       </Routes>
